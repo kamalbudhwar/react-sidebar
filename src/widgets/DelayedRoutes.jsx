@@ -49,6 +49,7 @@ function DelayedRoutes() {
   // state
   const [open, setOpen] = React.useState(true);
 
+  // To handle widget close/open
   const handleClick = () => {
     setOpen(!open);
   };

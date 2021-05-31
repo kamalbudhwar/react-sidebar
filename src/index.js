@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 
+// Basic theme setup
 const theme = createMuiTheme({
   typography:{
     fontFamily:'Roboto',

@@ -16,6 +16,7 @@ import debounce from "lodash/debounce";
 Chart.plugins.register(chartlabels);
 
 function RampChart() {
+  // Common widget specific styles
   const widgetStyle = useWidgetStyles();
 
   // state
@@ -23,12 +24,15 @@ function RampChart() {
   const [chart, setChart] = useState();
   const [open, setOpen] = React.useState(true);
 
+  // To refere to chart element in dom
   const chartEl = useRef();
 
+  // To handle widget close/open
   const handleClick = () => {
     setOpen(!open);
   };
   const debounceWait = 4000; // 4 seconds
+  // debounce setRampData to skip some update beats
   const delayedSetRampData = debounce(
     (data) => setRampData(data),
     debounceWait,
@@ -39,10 +43,12 @@ function RampChart() {
   );
 
   useEffect(() => {
+    // Setup to receive ramp data updates
     getRampAlgorithms((data) => {
       delayedSetRampData(data);
     });
 
+    // Init chart with default options
     setChart(
       new Chart(chartEl.current, {
         type: "doughnut",
@@ -75,6 +81,7 @@ function RampChart() {
   useEffect(() => {}, [chartEl]);
 
   useEffect(() => {
+    // Null checks
     if (!chart) return;
     if (!rampData.length) return;
     if (!chartEl.current) return;
@@ -84,12 +91,13 @@ function RampChart() {
       new Set(rampData.map((r) => r.algorithm))
     ).sort();
 
+    // count data for unique values
     let data = uniqueLabels.map(
       (a) => rampData.filter((r) => r.algorithm === a).length
     );
     chart.data.labels = uniqueLabels;
     chart.data.datasets[0].data = data;
-    chart.update();
+    chart.update();         // Update the chart after updating data
   }, [rampData, chart, chartEl]);
 
   return (

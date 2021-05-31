@@ -3,6 +3,7 @@ import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
 import React from "react";
 import { WiDayCloudy } from "weather-icons-react";
 
+// Component specific styles
 const useStyles = makeStyles((theme) => ({
   numbers: {
     fontWeight: "900",
